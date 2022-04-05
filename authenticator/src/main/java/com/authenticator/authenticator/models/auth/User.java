@@ -1,7 +1,5 @@
 package com.authenticator.authenticator.models.auth;
 
-import com.authenticator.authenticator.models.auth.Role;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

@@ -1,26 +1,27 @@
 package com.authenticator.authenticator.models;
 
 import com.authenticator.authenticator.models.auth.User;
-import com.fasterxml.jackson.annotation.JsonIncludeProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
 @Entity
 public class Profile {
-
     @Id
     @GeneratedValue
     private Long id;
+
     @OneToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JsonIgnoreProperties({"id", "password", "roles"})
     private User user;
+
     private String gender;
     private String status;
     private String city;
     private String state;
 
-    public Profile(Long id, User user, String gender, String status, String city, String state) {
-        this.id = id;
+    public Profile(User user, String gender, String status, String city, String state) {
         this.user = user;
         this.gender = gender;
         this.status = status;

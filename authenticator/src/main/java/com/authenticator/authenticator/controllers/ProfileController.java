@@ -12,10 +12,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
-@RequestMapping("/test")
-public class TestController {
-
+@RequestMapping("/userprofile")
+public class ProfileController {
     @Autowired
     private UserRepository userRepository;
 
@@ -32,7 +32,7 @@ public class TestController {
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/profiles")
+    @GetMapping("/profile")
     public ResponseEntity<List<Profile>> getAllProfiles() {
         return new ResponseEntity<>(profileRepository.findAll(), HttpStatus.OK);
     }
@@ -42,7 +42,7 @@ public class TestController {
         return profileRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    //
+    // TODO: Save profile to UserRepository
 
     @PostMapping
     public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {

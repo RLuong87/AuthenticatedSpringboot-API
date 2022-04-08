@@ -93,4 +93,5 @@ public class UserDetailsImpl implements UserDetails {
         UserDetailsImpl user = (UserDetailsImpl) obj;
         return Objects.equals(id, user.id);
     }
+
 }

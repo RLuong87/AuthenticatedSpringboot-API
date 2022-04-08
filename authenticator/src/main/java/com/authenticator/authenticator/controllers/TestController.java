@@ -1,7 +1,9 @@
 package com.authenticator.authenticator.controllers;
 
+import com.authenticator.authenticator.models.Content;
 import com.authenticator.authenticator.models.Profile;
 import com.authenticator.authenticator.models.auth.User;
+import com.authenticator.authenticator.repositories.ContentRepository;
 import com.authenticator.authenticator.repositories.ProfileRepository;
 import com.authenticator.authenticator.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class TestController {
     @Autowired
     private ProfileRepository profileRepository;
 
+    @Autowired
+    private ContentRepository contentRepository;
+
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         return new ResponseEntity<>(userRepository.findAll(), HttpStatus.OK);
@@ -32,33 +37,27 @@ public class TestController {
         return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/profiles")
-    public ResponseEntity<List<Profile>> getAllProfiles() {
-        return new ResponseEntity<>(profileRepository.findAll(), HttpStatus.OK);
+    @GetMapping("/content")
+    public ResponseEntity<List<Content>> getAllContent() {
+        return new ResponseEntity<>(contentRepository.findAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/profile/{id}")
-    public @ResponseBody Profile getProfile(@PathVariable Long id) {
-        return profileRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    @GetMapping("/content/{id}")
+    public @ResponseBody Content getContent(@PathVariable Long id) {
+        return contentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
-    //
 
     @PostMapping
-    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
-        return new ResponseEntity<>(profileRepository.save(profile), HttpStatus.CREATED);
+    public ResponseEntity<Content> createContent(@RequestBody Content content) {
+        return new ResponseEntity<>(contentRepository.save(content), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public @ResponseBody Profile updateProfile(@PathVariable Long id, @RequestBody Profile updates) {
-        Profile profile = profileRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    public @ResponseBody Content updateContent(@PathVariable Long id, @RequestBody Content updates) {
+        Content content = contentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        if (updates.getCity() != null) profile.setCity(updates.getCity());
-        if (updates.getGender() != null) profile.setGender(updates.getGender());
-        if (updates.getStatus() != null) profile.setStatus(updates.getStatus());
-        if (updates.getState() != null) profile.setState(updates.getState());
+        if (updates.getUserContent() != null) content.setUserContent(updates.getUserContent());
 
-        return profileRepository.save(profile);
+        return contentRepository.save(content);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.authenticator.authenticator.models.auth;
 
+import com.authenticator.authenticator.models.Content;
 import com.authenticator.authenticator.models.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -37,8 +38,8 @@ public class User {
     @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
-//    @OneToOne(fetch = FetchType.EAGER)
-//    private List<Profile> profile = new ArrayList<>();
+    @OneToMany(mappedBy = "userContent", fetch = FetchType.EAGER)
+    private List<Content> content = new ArrayList<>();
 
     public User() {
     }
@@ -80,7 +81,15 @@ public class User {
         this.roles = roles;
     }
 
-//    public List<Profile> getProfile() {
+    public List<Content> getContent() {
+        return content;
+    }
+
+    public void setContent(List<Content> content) {
+        this.content = content;
+    }
+
+    //    public List<Profile> getProfile() {
 //        return profile;
 //    }
 //

@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 public class Profile {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne
